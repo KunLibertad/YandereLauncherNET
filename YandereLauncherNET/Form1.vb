@@ -2,10 +2,6 @@
 Imports SevenZip
 Imports System.IO
 Imports System.ComponentModel
-Imports System.Threading.Tasks
-Imports System.Diagnostics
-Imports System.Configuration
-Imports System.Drawing.Imaging
 Public Class Form1
     Public WithEvents downloader As WebClient
     Public WithEvents extractor As SevenZipExtractor
