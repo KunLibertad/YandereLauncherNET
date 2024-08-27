@@ -210,4 +210,8 @@ Public Class Form1
                 Exit Sub
         End Select
     End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        dlgAbout.ShowDialog()
+    End Sub
 End Class
