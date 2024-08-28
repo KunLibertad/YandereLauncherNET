@@ -59,15 +59,22 @@ Public Class Form1
             Label1.Text = "Unable to find update"
             Exit Sub
         End Try
-        'Checar si se tiene la version preliminar
-        If My.Settings.CurrentYandereVersion = "" Then
+
+        ' Checar si la versión preliminar está vacía
+        If String.IsNullOrEmpty(My.Settings.CurrentYandereVersion) Then
             My.Settings.CurrentYandereVersion = DownloadVerString
             My.Settings.Save()
+        ElseIf Not DownloadVerString.Equals(My.Settings.CurrentYandereVersion) Then
+            UpdateAvailableToolStripMenuItem.Enabled = True
+            My.Settings.CurrentYandereVersion = DownloadVerString
+            My.Settings.Save()
+            UpdateAvailableToolStripMenuItem.Text = "New update available!"
+            UpdateAvailableToolStripMenuItem.Enabled = False
+            Button1.Text = "Update! (Hold shift and click this button to run the current version)"
         Else
-
+            UpdateAvailableToolStripMenuItem.Text = "Your software is up to date."
+            UpdateAvailableToolStripMenuItem.Enabled = False
         End If
-
-
     End Sub
 
     Sub DownloadFunction()
