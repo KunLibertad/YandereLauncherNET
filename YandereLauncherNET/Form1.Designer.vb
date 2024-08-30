@@ -35,10 +35,10 @@ Partial Class Form1
         EditStudentjsonToolStripMenuItem = New ToolStripMenuItem()
         HelpToolStripMenuItem = New ToolStripMenuItem()
         AboutToolStripMenuItem = New ToolStripMenuItem()
+        UpdateAvailableToolStripMenuItem = New ToolStripMenuItem()
         PictureBox1 = New PictureBox()
         Label2 = New Label()
         LinkLabel1 = New LinkLabel()
-        UpdateAvailableToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -104,19 +104,21 @@ Partial Class Form1
         ' DeleteGameDataToolStripMenuItem
         ' 
         DeleteGameDataToolStripMenuItem.Name = "DeleteGameDataToolStripMenuItem"
-        DeleteGameDataToolStripMenuItem.Size = New Size(168, 22)
+        DeleteGameDataToolStripMenuItem.Size = New Size(180, 22)
         DeleteGameDataToolStripMenuItem.Text = "Delete game data"
         ' 
         ' ToolStripSeparator1
         ' 
         ToolStripSeparator1.Name = "ToolStripSeparator1"
-        ToolStripSeparator1.Size = New Size(165, 6)
+        ToolStripSeparator1.Size = New Size(177, 6)
+        ToolStripSeparator1.Visible = False
         ' 
         ' EditStudentjsonToolStripMenuItem
         ' 
         EditStudentjsonToolStripMenuItem.Name = "EditStudentjsonToolStripMenuItem"
-        EditStudentjsonToolStripMenuItem.Size = New Size(168, 22)
+        EditStudentjsonToolStripMenuItem.Size = New Size(180, 22)
         EditStudentjsonToolStripMenuItem.Text = "Edit Students.json"
+        EditStudentjsonToolStripMenuItem.Visible = False
         ' 
         ' HelpToolStripMenuItem
         ' 
@@ -130,6 +132,13 @@ Partial Class Form1
         AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         AboutToolStripMenuItem.Size = New Size(107, 22)
         AboutToolStripMenuItem.Text = "About"
+        ' 
+        ' UpdateAvailableToolStripMenuItem
+        ' 
+        UpdateAvailableToolStripMenuItem.Alignment = ToolStripItemAlignment.Right
+        UpdateAvailableToolStripMenuItem.Name = "UpdateAvailableToolStripMenuItem"
+        UpdateAvailableToolStripMenuItem.Size = New Size(111, 20)
+        UpdateAvailableToolStripMenuItem.Text = "Update Available!"
         ' 
         ' PictureBox1
         ' 
@@ -159,13 +168,6 @@ Partial Class Form1
         LinkLabel1.TabIndex = 6
         LinkLabel1.TabStop = True
         LinkLabel1.Text = "Play Balatro!"
-        ' 
-        ' UpdateAvailableToolStripMenuItem
-        ' 
-        UpdateAvailableToolStripMenuItem.Alignment = ToolStripItemAlignment.Right
-        UpdateAvailableToolStripMenuItem.Name = "UpdateAvailableToolStripMenuItem"
-        UpdateAvailableToolStripMenuItem.Size = New Size(111, 20)
-        UpdateAvailableToolStripMenuItem.Text = "Update Available!"
         ' 
         ' Form1
         ' 

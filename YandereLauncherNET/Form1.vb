@@ -147,6 +147,8 @@ Public Class Form1
             Case "Play"
                 If My.Computer.Keyboard.ShiftKeyDown = True Then EnableDebug = True Else EnableDebug = False
                 PlayGame(EnableDebug)
+            Case "Update! (Hold shift and click this button to run the current version)"
+                If My.Computer.Keyboard.AltKeyDown = True Then PlayGame(False) Else DownloadFunction()
         End Select
     End Sub
 
