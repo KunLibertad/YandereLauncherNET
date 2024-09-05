@@ -26,6 +26,8 @@ Partial Class dlgAbout
         OKButton = New Button()
         Label1 = New Label()
         TextBox1 = New TextBox()
+        LinkLabel1 = New LinkLabel()
+        LinkLabel2 = New LinkLabel()
         SuspendLayout()
         ' 
         ' OKButton
@@ -61,12 +63,34 @@ Partial Class dlgAbout
         TextBox1.TabIndex = 3
         TextBox1.Text = resources.GetString("TextBox1.Text")
         ' 
+        ' LinkLabel1
+        ' 
+        LinkLabel1.AutoSize = True
+        LinkLabel1.Location = New Point(314, 114)
+        LinkLabel1.Name = "LinkLabel1"
+        LinkLabel1.Size = New Size(156, 15)
+        LinkLabel1.TabIndex = 4
+        LinkLabel1.TabStop = True
+        LinkLabel1.Text = "www.yanderesimulator.com"
+        ' 
+        ' LinkLabel2
+        ' 
+        LinkLabel2.AutoSize = True
+        LinkLabel2.Location = New Point(13, 290)
+        LinkLabel2.Name = "LinkLabel2"
+        LinkLabel2.Size = New Size(85, 15)
+        LinkLabel2.TabIndex = 5
+        LinkLabel2.TabStop = True
+        LinkLabel2.Text = "GitHub Project"
+        ' 
         ' dlgAbout
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(255), CByte(192), CByte(255))
         ClientSize = New Size(483, 318)
+        Controls.Add(LinkLabel2)
+        Controls.Add(LinkLabel1)
         Controls.Add(TextBox1)
         Controls.Add(Label1)
         Controls.Add(OKButton)
@@ -87,5 +111,7 @@ Partial Class dlgAbout
     Friend WithEvents OKButton As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabel2 As LinkLabel
 
 End Class

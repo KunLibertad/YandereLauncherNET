@@ -2,6 +2,7 @@
 Imports SevenZip
 Imports System.IO
 Imports System.ComponentModel
+Imports System.Security.Principal
 Public Class Form1
     Public WithEvents downloader As WebClient
     Public WithEvents extractor As SevenZipExtractor
@@ -19,12 +20,29 @@ Public Class Form1
         Me.MenuStrip1.Renderer = New MyRender()
 
     End Sub
+    Function IsUserAdministrator() As Boolean
+        'Esta funcion nos indica si el programa se esta ejecutando como administrador o como un usuario normal. 
+        Try
+            Dim identity As WindowsIdentity = WindowsIdentity.GetCurrent()
+            Dim principal As New WindowsPrincipal(identity)
+            Return principal.IsInRole(WindowsBuiltInRole.Administrator)
+        Catch ex As UnauthorizedAccessException
+            Return False
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Esto es de rutina. si encontramos el archivo ys.zip lo podemos eliminar.
         'Eso si se quiere tener una subversion hay que dar la opcion para el usuario
         If File.Exists($"{CurrentExecDir}\YS.zip") Then File.Delete($"{CurrentExecDir}\YS.zip")
         'Obtenemos la version mas reciente de yandere simulator checando si hay una version nueva del launcher
         CheckVersionFunc()
+        'Checar si el usuario esta ejecutando el launcher como un Administrador
+        If IsUserAdministrator() = True Then
+            MsgBox("You are currently running this launcher as admin. this is not the suggested use of the launcher", MsgBoxStyle.Exclamation, "Kun's Yandere Simulator Launcher")
+            Me.Text = "Kun's Yandere Simulator Launcher - <!!!>"
+        End If
         'Checar si el juego esta en el directorio primario
         If My.Settings.InitialSetup = True Then
             Select Case MsgBox("This is the first time that you have open the launcher. do you want to download Yandere Simulator?", MsgBoxStyle.YesNoCancel, "Kun's Yandere Simulator Launcher")
@@ -36,6 +54,7 @@ Public Class Form1
             My.Settings.InitialSetup = False
             My.Settings.Save()
         Else
+            'Checamos si el ejecutable esta disponible para ejecutar
             CheckExec()
         End If
     End Sub
