@@ -1,4 +1,6 @@
-﻿Imports System.Net
+﻿' TODO: Documentar aun mas el codigo. 
+
+Imports System.Net
 Imports SevenZip
 Imports System.IO
 Imports System.ComponentModel
@@ -68,31 +70,58 @@ Public Class Form1
             Button1.Text = "Download"
         End If
     End Sub
-
-    Private Sub CheckVersionFunc()
-        Dim DownloadVerString As String
-        Dim WebClientDS As New WebClient
+    ' Esta funcion descarga el numero de version mas reciente de YS
+    Private Function DownloadLatestVersion() As String
+        Dim DownloadVerString As String = String.Empty
         Try
-            DownloadVerString = WebClientDS.DownloadString(New Uri("https://www.yanderesimulator.com/version.txt"))
+            Using WebClientDS As New WebClient
+                DownloadVerString = WebClientDS.DownloadString(New Uri("https://www.yanderesimulator.com/version.txt"))
+            End Using
         Catch ex As Exception
             Label1.Text = "Unable to find update"
-            Exit Sub
+            Return Nothing
         End Try
+        Return DownloadVerString
+    End Function
 
-        ' Checar si la versión preliminar está vacía
-        If String.IsNullOrEmpty(My.Settings.CurrentYandereVersion) Then
-            My.Settings.CurrentYandereVersion = DownloadVerString
-            My.Settings.Save()
-        ElseIf Not DownloadVerString.Equals(My.Settings.CurrentYandereVersion) Then
+    ' Esta funcion compara sila version guardada en My.Settings es la mas actual al que reporta el servidor
+    Private Function IsUpdateAvailable(current As String, latest As String) As Boolean
+        If String.IsNullOrEmpty(current) OrElse String.IsNullOrEmpty(latest) Then
+            Return False
+        End If
+        Return Not current.Equals(latest, StringComparison.OrdinalIgnoreCase)
+    End Function
+
+    ' Esta subrutina checa si hay una actualizacion y cambia el UI
+    Private Sub CheckVersionFunc()
+        Dim currentVersion As String = My.Settings.CurrentYandereVersion
+        Dim latestVersion As String = DownloadLatestVersion()
+
+        ' si la version mas reciente no esta disponible. sal de la subrutina
+        If String.IsNullOrEmpty(latestVersion) Then
+            Exit Sub
+        End If
+
+        ' Checha si hay una actualizacion disponible
+        If IsUpdateAvailable(currentVersion, latestVersion) Then
+            ' Si lo hay, cambia el UI para avisar al usuario
             UpdateAvailableToolStripMenuItem.Enabled = True
-            My.Settings.CurrentYandereVersion = DownloadVerString
-            My.Settings.Save()
             UpdateAvailableToolStripMenuItem.Text = "New update available!"
-            UpdateAvailableToolStripMenuItem.Enabled = False
             Button1.Text = "Update! (Hold shift and click this button to run the current version)"
+
+            ' Guardamos la ultima version en My.Settings
+            My.Settings.CurrentYandereVersion = latestVersion
+            My.Settings.Save()
         Else
+            ' Si no hay, indicamos que no es nesesaria una actualizacion
             UpdateAvailableToolStripMenuItem.Text = "Your software is up to date."
             UpdateAvailableToolStripMenuItem.Enabled = False
+        End If
+
+        ' Si no hay version guardada, la guardamos en My.Settings
+        If String.IsNullOrEmpty(currentVersion) Then
+            My.Settings.CurrentYandereVersion = latestVersion
+            My.Settings.Save()
         End If
     End Sub
 
